@@ -1,0 +1,804 @@
+Array.c
+
+#include <stdio.h>
+
+#include "array.h"
+
+int main()
+
+{
+
+int List[MAXSIZE];
+
+char c1[3]="yes";
+
+int choice1,choice2,choice3,x,p,e,element;
+
+do
+
+{
+
+printf("\nArray implementation of List\n");
+
+printf("\n----------------------------------------");
+
+printf("\n Operations");
+
+printf("\n********************");
+
+printf("\n1.Insert");
+
+printf("\n2.Delete");
+
+printf("\n3.Search");
+
+printf("\n4.Display");
+
+printf("\n********************");
+
+printf("\nEnter your Choice:");
+
+scanf("%d",&choice1);
+
+switch(choice1)
+
+{
+
+case 1:
+
+do
+
+{
+
+printf("\nInsert Operations");
+
+printf("\n******************");
+
+printf("\n1.Insert at First");
+
+printf("\n2.Insert at Last");
+
+printf("\n3.Insert at Position");
+
+printf("\n4.Insert Before an Element");
+
+printf("\n5.Insert After an element");
+
+printf("\n6.Exit");
+
+printf("\nEnter your Choice:");
+
+scanf("%d",&choice2);
+
+switch(choice2)
+
+{
+
+case 1: printf("\nInsert at First\n");
+
+insertToFOL(List);
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+case 2:printf("\nInsert at Last\n");
+
+insertToEOL(List);
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+case 3:printf("\nInsert at Position\n");
+
+insertToNthPos(List);
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+case 4:printf("\nInsert at before an element\n");
+
+printf("\nEnter an element:");
+
+scanf("%d",&x);
+
+printf("\nEnter an before element:");
+
+scanf("%d",&e);
+
+insertBefore(x,e,List);
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+case 5: printf("\nInsert at after an element");
+
+printf("\nEnter an element:");
+
+scanf("%d",&x);
+
+printf("\nEnter an after element:");
+
+scanf("%d",&e);
+
+insertAfter(x,e,List);
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+}
+
+}while(choice2<6);
+
+break;
+
+case 2:
+
+do
+
+{
+
+printf("\n1.Delete at First");
+
+printf("\n2.Delete at Last");
+
+printf("\n3.Delete at Position");
+
+printf("\n4.Delete an element");
+
+printf("\n5.Exit");
+
+printf("\nEnter your Choice:");
+
+scanf("%d",&choice3);
+
+switch(choice3)
+
+{
+
+case 1: printf("\nDelete at First\n");
+
+deleteFromFOL(List);
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+case 2: printf("\nDelete at Last\n");
+
+deleteFromEOL(List);
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+break;
+
+case 3:printf("\nDelete at Position\n");
+
+deleteFromNthPos(List);
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+case 4:printf("\nDelete an element\n");
+
+printf("Enter the element to be deleted\n");
+
+scanf("%d", &e);
+
+deleteAnElement(e,List);
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+default:printf("Exit");
+
+}
+
+}while(choice3<5);
+
+break;
+
+case 3:
+
+printf("Enter the Element to search\n");
+
+scanf("%d",&element);
+
+searchInList(element,List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+case 4:
+
+printList(List);
+
+printf("------------------------------------------------------------\n");
+
+break;
+
+default:
+
+printf("===============================================================\n");
+
+printf("\t\nYou are not entered the right choice\n");
+
+printf("===============================================================\n");
+
+}
+
+printf("\nDo you want to Continue(y/n):");
+
+scanf("%s",c1);
+
+}while(strcmp(c1,"y")==0);
+
+}
+
+array.h
+
+#include <stdio.h>
+
+int MAXSIZE=10;
+
+int N=0;
+
+int isEmpty()
+
+{
+
+if(N==0)
+
+{
+
+return 1;
+
+}
+
+else
+
+return 0;
+
+}
+
+int isFull()
+
+{
+
+if(N==MAXSIZE)
+
+{
+
+return 1;
+
+}
+
+else
+
+return 0;
+
+}
+
+void insertToEOL(int *Listptr)
+
+{
+
+if(isFull())
+
+{
+
+printf("List is Full Can’t Insert\n");
+
+}
+
+else
+
+{
+
+int element;
+
+printf("Enter the Element to Insert:\n");
+
+scanf("%d",&element);
+
+int index=N;
+
+Listptr[index]=element;
+
+N=N+1;
+
+}
+
+}
+
+void deleteFromEOL(int *List)
+
+{
+
+if(isEmpty())
+
+{
+
+printf("List is Empty. We cant Delete\n");
+
+}
+
+else
+
+{
+
+int element;
+
+int index=N-1;
+
+element=List[index];
+
+printf("Element %d deleted from postion %d\n",element,index+1);
+
+N=N-1;
+
+}
+
+}
+
+void insertToFOL(int *List)
+
+{
+
+if(isFull())
+
+{
+
+printf("List is Full... cant insert\n");
+
+}
+
+else
+
+{
+
+int index=0,element;
+
+printf("Enter the element to insert:\n");
+
+scanf("%d",&element);
+
+for(index=N;index>0;index--)
+
+{
+
+List[index]=List[index-1];
+
+}
+
+List[0]=element;
+
+N=N+1;
+
+}
+
+}
+
+void deleteFromFOL(int *List)
+
+{
+
+if(isEmpty())
+
+{
+
+printf("List is Empty... cant delete\n");
+
+}
+
+else
+
+{
+
+int index=0,element;
+
+element=List[0];
+
+for(index=0;index<N;index++)
+
+{
+
+List[index]=List[index+1];
+
+}
+
+N=N-1;
+
+printf("Element %d from Position 1\n",element);
+
+}
+
+}
+
+void insertToNthPos(int *List)
+
+{
+
+if(isFull())
+
+{
+
+printf("List is Full... Cant insert\n");
+
+}
+
+else
+
+{
+
+int i,index=0,element,pos;
+
+printf("Available Postion in List\n");
+
+if(isEmpty())
+
+{
+
+printf("List is Empty... only Available Position is 1\n");
+
+printf("Enter the Element to insert\n");
+
+scanf("%d",&element);
+
+List[0]=element;
+
+N=N+1;
+
+}
+
+else
+
+{
+
+do
+
+{
+
+printf("Enter the Position(within %d from 1) in which you want to insert Element\n",N);
+
+scanf("%d",&pos);
+
+}while(pos>N || pos<0);
+
+printf("Enter the Element to insert\n");
+
+scanf("%d",&element);
+
+for(index=N;index>pos-1;index--)
+
+{
+
+List[index]=List[index-1];
+
+}
+
+List[pos-1]=element;
+
+N=N+1;
+
+}
+
+}
+
+}
+
+void deleteFromNthPos(int *List)
+
+{
+
+int element,pos,index;
+
+if(isEmpty())
+
+{
+
+printf("List is Empty... cant delete\n");
+
+}
+
+else
+
+{
+
+do
+
+{
+
+printf("Enter the Position(within %d from 1) from which you want to Delete Element\n",N);
+
+scanf("%d",&pos);
+
+}while(pos>N || pos<0); element=List[pos-1];
+
+if(pos==N)
+
+{
+
+N=N-1;
+
+}
+
+else
+
+{
+
+for(index=pos-1;index<N;index++)
+
+{
+
+List[index]=List[index+1];
+
+}
+
+N=N-1;
+
+}
+
+printf("Element %d deleted from postion %d\n",element,pos);
+
+}
+
+printf("deleteFromNthPos\n");
+
+}
+
+int searchInList(int element,int *List)
+
+{
+
+int index,i,found=0;
+
+if(isEmpty())
+
+{
+
+printf("List is empty\n");
+
+}
+
+else
+
+{
+
+for(i=0;i<N;i++)
+
+{
+
+if(List[i]==element)
+
+{
+
+found=1;
+
+break;
+
+}
+
+}
+
+if(found)
+
+{
+
+printf("Element %d available in Position %d\n",element,i+1);
+
+return i;
+
+}
+
+else
+
+{
+
+printf("Element %d not available in List\n",element);
+
+return -1;
+
+}
+
+}
+
+}
+
+void printList(int List[])
+
+{
+
+int i=0;
+
+if(isEmpty())
+
+{
+
+printf("List is Empty\n");
+
+}
+
+else
+
+{
+
+printf("\nArray Element\n");
+
+for(i=0;i<N;i++) {
+
+printf("%d\n",List[i]);
+
+}
+
+}
+
+}
+
+void insertBefore(int x,int e,int *List)
+
+{
+
+if(isFull())
+
+{
+
+printf("List is Full... Cant insert\n");
+
+}
+
+else
+
+{
+
+int i,index=0,pos;
+
+pos=searchInList(e,List);
+
+if(pos == -1)
+
+printf("Element not present in the List\n");
+
+else
+
+{
+
+printf("Available Postion in LIst %d\n",pos);
+
+for(index=N;index>pos-1;index--)
+
+{
+
+List[index]=List[index-1]; }
+
+List[pos]=x;
+
+N=N+1;
+
+}
+
+}
+
+}
+
+void insertAfter(int x,int e,int *List)
+
+{
+
+if(isFull())
+
+{
+
+printf("List is Full... Cant insert\n");
+
+}
+
+else
+
+{
+
+int i,index=0,pos;
+
+pos=searchInList(e,List);
+
+if(pos == -1)
+
+printf("Element not present in the List\n");
+
+else
+
+{
+
+printf("Available Postion in LIst\n");
+
+for(index=N;index>pos;index--)
+
+{
+
+List[index]=List[index-1];
+
+}
+
+List[pos+1]=x;
+
+N=N+1;
+
+}
+
+}
+
+}
+
+void deleteAnElement(int e,int *List)
+
+{
+
+if(isEmpty())
+
+{
+
+printf("List is Empty... cant delete\n");
+
+}
+
+else
+
+{
+
+int i,index=0,pos;
+
+pos=searchInList(e,List);
+
+if(pos == -1)
+
+printf("Element not present in the List\n");
+
+else
+
+{
+
+printf("Available Postion in LIst\n");
+
+for (index = pos; index < N - 1; index++)
+
+{
+
+List[index] = List[index + 1];
+
+}
+
+N=N-1;
+
+}
+
+}
+
+}
+
