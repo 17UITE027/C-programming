@@ -1,0 +1,135 @@
+#include<stdio.h>
+
+#include<stdlib.h>
+
+#include<unistd.h>
+
+int main()
+
+{
+
+int pid,x=10;
+
+pid=fork();
+
+if(pid==0)
+
+{
+
+printf("\nChild process execution");
+
+printf("\nThe child process id is %d",getpid());
+
+printf( "\nThe parent process id is %d",getppid());
+
+}
+
+else
+
+{
+
+printf("\nParent process execution");
+
+printf("\nPID %d",getpid());
+
+printf( "\nThe parent process id is %d",getppid());
+
+}
+
+return 0;
+
+}
+
+
+
+#include<stdio.h>
+
+#include<string.h>
+
+#include<stdlib.h>
+
+int main()
+
+{
+
+char file[10],pattern[10],temp[200];
+
+FILE *fp;
+
+printf("Enter file name\n");
+
+scanf("%s",file);
+
+fp=fopen(file,"r");
+
+if (fp == NULL)
+
+{
+
+printf("Cannot open file %s \n", file);
+
+exit(0);
+
+}
+
+printf("Enter pattern to be searched\n");
+
+scanf("%s",pattern);
+
+while(!feof(fp))
+
+{
+
+fgets(temp,100,fp);
+
+if(strstr(temp,pattern))
+
+printf("%s",temp);
+
+}
+
+fclose(fp);
+
+}
+
+#include<stdio.h>
+
+#include<dirent.h>
+
+int main()
+
+{
+
+DIR *d;
+
+struct dirent *de;
+
+d=opendir(".");
+
+if(d==NULL)
+
+{
+
+printf("Could not open");
+
+return 0;
+
+}
+
+printf("==========================");
+
+printf("CONTENTS OF THE DIRECTORY");
+
+printf("==========================");
+
+while((de=(readdir(d)))!=NULL)
+
+{
+
+printf("%s\n",de->d_name);
+
+}
+
+closedir(d);
+
+}
