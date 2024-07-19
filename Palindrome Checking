@@ -1,0 +1,91 @@
+#include"llil.h"
+
+int x;
+
+void push(x)
+
+{
+
+insertfirst();
+
+}
+
+int pop()
+
+{
+
+deletefirst();
+
+}
+
+void s_display()
+
+{
+
+display();
+
+}
+
+s.c
+
+# include <stdio.h>
+
+#include<stdlib.h>
+
+#include"s.h"
+
+int main()
+
+{
+
+int c,e;
+
+do
+
+{
+
+printf("\n1.push\n2.pop\n3.display\n4-Exit\n");
+
+printf("Enter the choice:\n");
+
+scanf("%d",&c);
+
+switch(c)
+
+{
+
+case 1:
+
+push();
+
+s_display();
+
+break;
+
+case 2:
+
+e=pop();
+
+printf("the delete element is %d\n",e);
+
+s_display();
+
+break;
+
+case 3:
+
+s_display();
+
+break;
+
+case 4:
+
+exit(0);
+
+break;
+
+}
+
+}while(c<=4);
+
+}
