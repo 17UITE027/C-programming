@@ -1,0 +1,632 @@
+#include<stdio.h>
+
+#include<stdlib.h>
+
+typedef struct node
+
+{
+
+int data;
+
+struct node *link;
+
+}node;
+
+node *hdr=NULL;
+
+int count()
+
+{
+
+int count=0;
+
+node *trav;
+
+trav=hdr;
+
+while(trav!=NULL)
+
+{
+
+count++;
+
+trav=trav->link;
+
+}
+
+return(count);
+
+}
+
+int search(int x)
+
+{
+
+int flag=-1;
+
+int count=0;
+
+node *trav;
+
+if(hdr==NULL)
+
+{
+
+return(-1);
+
+}
+
+else
+
+{
+
+trav=hdr;
+
+while(trav->data!=x)
+
+{
+
+if(trav->link==NULL)
+
+return(flag);
+
+trav=trav->link;
+
+count++;
+
+}
+
+return(count+1);
+
+}
+
+}
+
+void display()
+
+{
+
+node *trav;
+
+trav=hdr;
+
+if(count()==0)
+
+{
+
+printf("\nThe list is empty");
+
+}
+
+else
+
+{
+
+while(trav!=NULL)
+
+{
+
+printf("%d=>",trav->data);
+
+trav=trav->link;
+
+}
+
+}
+
+}
+
+void insert_first(int x)
+
+{
+
+node *temp=(node *)malloc(sizeof(node));
+
+temp->data=x;
+
+temp->link=hdr;
+
+hdr=temp;
+
+display();
+
+}
+
+void insert_position(int pos,int x)
+
+{
+
+int coun=count(),i;
+
+if(pos>coun+1)
+
+printf("\nPosition out of size....!!!");
+
+else if(pos==1)
+
+insert_first(x);
+
+else
+
+{
+
+node *trav,*temp=(node *)malloc(sizeof(node));
+
+trav=hdr;
+
+temp->data=x;
+
+for(i=1;i<pos-1;i++)
+
+{
+
+trav=trav->link;
+
+}
+
+temp->link=trav->link;
+
+trav->link=temp;
+
+display();
+
+}
+
+}
+
+void insert_last(int x)
+
+{
+
+insert_position(count()+1,x);
+
+}
+
+void insert_before_element(int val,int x)
+
+{
+
+int i,n=search(val);
+
+if(n==-1)
+
+printf("\nThe given value is not found in the list");
+
+else
+
+insert_position(n,x);
+
+}
+
+void insert_after_element(int val,int x)
+
+{
+
+int i,n=search(val);
+
+if(n==-1)
+
+printf("\nThe given value is not found in the list");
+
+else
+
+insert_position(n+1,x);
+
+}
+
+int delete_first()
+
+{
+
+int x;
+
+if(hdr==NULL)
+
+{
+
+x=-9999;
+
+}
+
+else
+
+{
+
+x=hdr->data;
+
+hdr=hdr->link;
+
+}
+
+display();
+
+return x;
+
+}
+
+int delete_position(int pos)
+
+{
+
+int x,i;
+
+int coun=count();
+
+if(pos==0)
+
+return(-9999);
+
+if(pos>coun)
+
+return(-9999);
+
+else if(pos==1)
+
+x=delete_first();
+
+else
+
+{
+
+node *trav,*prev;
+
+trav=hdr;
+
+for(i=0;i<pos-1;i++)
+
+{
+
+prev=trav;
+
+trav=trav->link;
+
+x=trav->data;
+
+}
+
+prev->link=prev->link->link;
+
+display();
+
+return(x);
+
+}
+
+}
+
+int delete_last()
+
+{
+
+int x=delete_position(count());
+
+return(x);
+
+}
+
+int delete_element(int val)
+
+{
+
+int x;
+
+int n=search(val);
+
+if(n==-1)
+
+return(-9999);
+
+else
+
+return(delete_position(n));
+
+}
+
+#include<stdio.h>
+
+#include<stdlib.h>
+
+#include"singlylinked_list.h"
+
+void main()
+
+{
+
+int ch,ch1,x,pos;
+
+do
+
+{
+
+printf("\n==============Linked list operation================\n");
+
+printf("\n1.Insertion");
+
+printf("\n2.Deletion");
+
+printf("\n3.Display");
+
+printf("\n4.Search");
+
+printf("\n5.Exit");
+
+printf("\nEnter your choice: ");
+
+scanf("%d",&ch);
+
+switch(ch)
+
+{
+
+case 1:
+
+{
+
+do
+
+{
+
+printf("\n\n========Inserting operation=======");
+
+printf("\n1)Insert at first");
+
+printf("\n2)Insert at last");
+
+printf("\n3)Insert Before element");
+
+printf("\n4)Insert After element");
+
+printf("\n5)Insert at position");
+
+printf("\nEnter the choice: ");
+
+scanf("%d",&ch1);
+
+switch(ch1)
+
+{
+
+case 1:
+
+{
+
+printf("\nEnter the element to be insert: ");
+
+scanf("%d",&x);
+
+insert_first(x);
+
+break;
+
+}
+
+case 2:
+
+{
+
+printf("\nEnter the element to be insert: ");
+
+scanf("%d",&x);
+
+insert_last(x);
+
+break;
+
+}
+
+case 3:
+
+{
+
+printf("\nEnter the element to insert before the element: ");
+
+scanf("%d",&pos);
+
+printf("\nEnter the value to insert: ");
+
+scanf("%d",&x);
+
+insert_before_element(pos,x);
+
+break;
+
+}
+
+case 4:
+
+{
+
+printf("\nEnter the element to insert after the element: ");
+
+scanf("%d",&pos);
+
+printf("\nEnter the value to insert: ");
+
+scanf("%d",&x);
+
+insert_after_element(pos,x);
+
+break;
+
+}
+
+case 5:
+
+{
+
+printf("\nEnter the position to insert: ");
+
+scanf("%d",&pos);
+
+printf("\nEnter the value: ");
+
+scanf("%d",&x);
+
+insert_position(pos,x);
+
+break;
+
+}
+
+default:
+
+printf("\nInvalid choice try again...!!!\n\n");
+
+}
+
+}while(ch1<=5);
+
+}
+
+case 2:
+
+{
+
+do
+
+{
+
+printf("\n\n==========Deleteing operation========");
+
+printf("\n1)Delete at first");
+
+printf("\n2)Delete at last");
+
+printf("\n3)Delete at position");
+
+printf("\n4)Delete element");
+
+printf("\nEnter your choice: ");
+
+scanf("%d",&ch1);
+
+switch(ch1)
+
+{
+
+case 1:
+
+{
+
+int t=delete_first();
+
+if(t!=-9999)
+
+printf("\n\n\nThe element %d is deleted ",t);
+
+break;
+
+}
+
+case 2:
+
+{
+
+int t=delete_last();
+
+if(t!=-9999)
+
+printf("\n\n\nThe element %d is deleted ",t);
+
+break;
+
+}
+
+case 3:
+
+{
+
+printf("\nEnter the position: ");
+
+scanf("%d",&pos);
+
+x=delete_position(pos);
+
+if(x==-9999)
+
+printf("\nThe position is not available....");
+
+else
+
+printf("\n%d value is removed successfully\n",x);
+
+display();
+
+break;
+
+}
+
+case 4:
+
+{
+
+printf("\nEnter the value to be deleted: ");
+
+scanf("%d",&x);
+
+pos=delete_element(x);
+
+if(pos==-9999)
+
+printf("\nElement not found\n");
+
+else
+
+printf("\n %d element deleted successfully",pos);
+
+display();
+
+break;
+
+}
+
+default:
+
+printf("\nInvalid choice !!!......\n\n");
+
+}
+
+}while(ch1<=4);
+
+}
+
+case 3:
+
+{
+
+display();
+
+break;
+
+}
+
+case 4:
+
+{
+
+printf("\nEnter the searching element:");
+
+scanf("%d",&x);
+
+if(search(x)==-1)
+
+printf("\nThe searching element is not found");
+
+else
+
+printf("\nThe searching element is found in index %d",search(x));
+
+break;
+
+}
+
+default:
+
+printf("\n\nInvalid input!!!!!\n\n");
+
+}
+
+}while(ch<=4);
+
+}
+
