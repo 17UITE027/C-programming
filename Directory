@@ -1,0 +1,76 @@
+#include<stdio.h>
+
+#include<dirent.h>
+
+int main()
+
+{
+
+DIR *d;
+
+struct dirent *de;
+
+d=opendir(".");
+
+if(d==NULL)
+
+{
+
+printf("\nCould not open");
+
+return 0;
+
+}
+
+printf("\nThe contents in the directory");
+
+while((de=(readdir(d)))!=NULL)
+
+{
+
+printf("%s\n",de->d_name);
+
+}
+
+closedir(d);
+
+return 0;
+
+}
+
+
+#include<unistd.h>
+
+#include<stdio.h>
+
+int main()
+
+{
+
+int pid,i;
+
+pid=fork();
+
+if(pid==0)
+
+{
+
+execlp("/bin/ls","ls",NULL);
+
+printf("Kamaraj");
+
+}
+
+else
+
+{
+
+for(i=0;i<10;i++)
+
+printf("%d\n",i);
+
+}
+
+return 0;
+
+}
