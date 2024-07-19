@@ -1,0 +1,93 @@
+q.h
+
+#include "llil.h"
+
+int x;
+
+void enqueue()
+
+{
+
+insertlast();
+
+}
+
+int dequeue()
+
+{
+
+deletefirst();
+
+}
+
+void s_display()
+
+{
+
+display();
+
+}
+
+q.c
+
+# include <stdio.h>
+
+#include<stdlib.h>
+
+#include"q.h"
+
+int main()
+
+{
+
+int c,e;
+
+do
+
+{
+
+printf("\n=======Queue using Linked list======\n");
+
+printf("1-Enqueue\n2-Dequeue\n3-Display\n4-Exit\n");
+
+printf("Enter the choice:\n");
+
+scanf("%d",&c);
+
+switch(c)
+
+{
+
+case 1:
+
+enqueue();
+
+s_display();
+
+break;
+
+case 2:
+
+dequeue();
+
+s_display();
+
+break;
+
+case 3:
+
+s_display();
+
+break;
+
+case 4:
+
+exit(0);
+
+break;
+
+}
+
+}while(c<=4);
+
+}
